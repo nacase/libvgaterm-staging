@@ -1,0 +1,45 @@
+/* -*- Mode: C; c-basic-offset: 4 -*- */
+%%
+headers
+#include <Python.h>
+#define NO_IMPORT_PYGTK
+#include <pygtk/pygtk.h>
+#include <pygobject.h>
+#include <gtk/gtk.h>
+#include "../vgaterm/vgaterm.h"
+
+void pyvgaterm_add_constants(PyObject *module, const gchar *strip_prefix);
+void pyvgaterm_register_classes(PyObject *d);
+%%
+modulename vgaterm
+%%
+import gtk.gdk.Pixbuf as PyGdkPixbuf_Type
+import gtk.Widget as PyGtkWidget_Type
+import gobject.GObject as PyGObject_Type
+
+
+%%
+override vga_get_video_buf noargs
+
+/*
+ * This function doesn't really work -- the only use for it is to 
+ * do raw manipulation of the video buffer.  That's not realistic
+ * in python.  Instead we will just return a copy of the raw buffer
+ * contents, which would only be useful for reading purposes.
+ */
+static PyObject *
+_wrap_vga_get_video_buf(PyGObject *self)
+{
+	PyObject *ret;
+	guchar *buf;
+	int i, len;
+
+	buf = vga_get_video_buf(VGA_TEXT(self->obj));
+	len = vga_video_buf_size(VGA_TEXT(self->obj));
+	/* ret = PyByteArray_New */
+	/* FIXME: We should consider using bytearray instead */
+	ret = PyTuple_New(len);
+	for (i = 0; i < len; i++)
+		PyTuple_SetItem(ret, i, PyInt_FromLong(buf[i]));
+	return ret;
+}

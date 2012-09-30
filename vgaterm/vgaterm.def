@@ -1,0 +1,27 @@
+EXPORTS
+    vga_term_get_type
+    vga_term_new
+    vga_term_writec		
+    vga_term_write		
+    vga_term_writeln	
+    vga_term_print		
+    vga_term_kbhit		
+    vga_term_readkey	
+    vga_term_window		
+    vga_term_gotoxy		
+    vga_term_wherex		
+    vga_term_wherey		
+    vga_term_cols		
+    vga_term_rows		
+    vga_term_clrscr		
+    vga_term_clrdown	
+    vga_term_clrup		
+    vga_term_clreol		
+    vga_term_scroll_up	
+    vga_term_scroll_down	
+    vga_term_insline	
+    vga_term_delline	
+    vga_term_set_attr	
+    vga_term_get_attr	
+    vga_term_set_fg		
+    vga_term_set_bg		

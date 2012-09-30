@@ -1,0 +1,56 @@
+libvgaterm
+==========
+
+libvgaterm is a library that provides a VGA text mode terminal Gtk+ widget.
+
+
+Run-time dependencies
+=====================
+
+In general, the primary dependency of libvgaterm is Gtk+ 2.8 (or newer in the
+2.x series).  Python and pygtk are also required if you are using the
+(highly recommended) Python bindings.
+
+Below is a list of package names you can install which should pull in all
+the required dependencies.  Package names vary depending on which Linux
+distribution you are using.
+
+Debian/Ubuntu (apt-get install X):
+	libgtk2.0-0 python-gtk2
+
+Fedora/Red Hat (yum install X):
+	gtk2 pygtk2
+
+
+Compiling from source
+=====================
+
+If you're building this library from source, you will need the associated
+development packages for Gtk+ 2.x and pygtk:
+
+Debian/Ubuntu (apt-get install X):
+	libgtk2.0-dev python-dev python-gtk2-dev
+
+Fedora/Red Hat (yum install X):
+	gtk2-devel python-devel pygtk2-devel
+
+If you are building directly from the git repository rather than using a
+release tarball, additional dependencies and steps are required.  First,
+ensure that you have installed autoconf, automake, and libtool on your system.
+Then, run "./autogen.sh" from the top-level build directory to generate the
+configure script.
+
+Run the following three commands to configure, compile, and install the
+library:
+
+	$ ./configure
+	$ make
+	$ make install
+
+See the 'INSTALL' file for more details.
+
+
+Support
+=======
+
+Visit the libvgaterm homepage at https://github.com/nacase/libvgaterm

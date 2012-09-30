@@ -1,4 +1,0 @@
-libvgaterm-staging
-==================
-
-libvgaterm

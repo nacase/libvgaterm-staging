@@ -1,0 +1,639 @@
+;; VGATerm extends parent VGAText
+;; VGAText extends parent GtkWidget
+
+;; -*- scheme -*-
+; object definitions ...
+
+;;;;;;;;;;;;;;;;;;;
+;; VGAFont
+;;;;;;;;;;;;;;;;;;;
+
+(define-object VGAFont
+  (in-module "vgaterm")
+  (parent "GObject")
+  (c-name "VGAFont")
+  (gtype-id "VGA_TYPE_FONT")
+)
+
+;; From vgatext.h
+
+(define-function vga_font_get_type
+  (c-name "vga_font_get_type")
+  (return-type "GType")
+)
+
+(define-function vga_font_new
+  (c-name "vga_font_new")
+  (is-constructor-of "VGAFont")
+  (return-type "VGAFont*")
+)
+
+(define-method set_chars
+  (of-object "VGAFont")
+  (c-name "vga_font_set_chars")
+  (return-type "gboolean")
+  (parameters
+    '("guchar*" "data")
+    '("guchar" "start_c")
+    '("guchar" "end_c")
+  )
+)
+
+(define-method load
+  (of-object "VGAFont")
+  (c-name "vga_font_load")
+  (return-type "gboolean")
+  (parameters
+    '("guchar*" "data")
+    '("int" "height")
+    '("int" "width")
+  )
+)
+
+(define-method load_from_file
+  (of-object "VGAFont")
+  (c-name "vga_font_load_from_file")
+  (return-type "gboolean")
+  (parameters
+    '("gchar*" "fname")
+  )
+)
+
+(define-method load_default
+  (of-object "VGAFont")
+  (c-name "vga_font_load_default")
+  (return-type "none")
+)
+
+(define-method pixels
+  (of-object "VGAFont")
+  (c-name "vga_font_pixels")
+  (return-type "int")
+)
+
+;;;;;;;;;;;;;;;;;;;
+;; VGAPalette
+;;;;;;;;;;;;;;;;;;;
+
+;(define-enum Palette
+;  (in-module "Stock")
+;  (c-name "StockPalette")
+;  (gtype-id "STOCK_TYPE_PALETTE")
+;  (values
+;    '("default" "PAL_DEFAULT")
+;    '("white" "PAL_WHITE")
+;    '("black" "PAL_BLACK")
+;    '("greyscale" "PAL_GREYSCALE")
+;  )
+;)
+
+(define-object VGAPalette
+  (in-module "vgaterm")
+  (parent "GObject")
+  (c-name "VGAPalette")
+  (gtype-id "VGA_TYPE_PALETTE")
+)
+
+(define-function vga_palette_new
+  (c-name "vga_palette_new")
+  (is-constructor-of "VGAPalette")
+  (return-type "VGAPalette*")
+)
+
+(define-function vga_palette_stock
+  (c-name "vga_palette_stock")
+  (return-type "VGAPalette*")
+  (parameters
+    '("StockPalette" "id")
+  )
+)
+
+(define-method dup
+  (of-object "VGAPalette")
+  (c-name "vga_palette_dup")
+  (return-type "VGAPalette*")
+)
+
+(define-method copy_from
+  (of-object "VGAPalette")
+  (c-name "vga_palette_copy_from")
+  (return-type "VGAPalette*")
+  (parameters
+    '("VGAPalette*" "srcpal")
+  )
+)
+
+(define-method load
+  (of-object "VGAPalette")
+  (c-name "vga_palette_load")
+  (return-type "gboolean")
+  (parameters
+    '("guchar*" "data")
+    '("int" "size")
+  )
+)
+
+(define-method load_from_file
+  (of-object "VGAPalette")
+  (c-name "vga_palette_load_from_file")
+  (return-type "gboolean")
+  (parameters
+    '("guchar*" "fname")
+  )
+)
+
+(define-method set_reg
+  (of-object "VGAPalette")
+  (c-name "vga_palette_set_reg")
+  (return-type "none")
+  (parameters
+    '("guchar" "reg")
+    '("guchar" "r")
+    '("guchar" "g")
+    '("guchar" "b")
+  )
+)
+
+(define-method get_reg
+  (of-object "VGAPalette")
+  (c-name "vga_palette_get_reg")
+  (return-type "GdkColor*")
+  (parameters
+    '("guchar" "reg")
+  )
+)
+
+(define-method get_color
+  (of-object "VGAPalette")
+  (c-name "vga_palette_get_color")
+  (return-type "GdkColor*")
+  (parameters
+    '("guchar" "pal_index")
+  )
+)
+
+(define-method load_default
+  (of-object "VGAPalette")
+  (c-name "vga_palette_load_default")
+  (return-type "none")
+)
+
+(define-method morph_to_step
+  (of-object "VGAPalette")
+  (c-name "vga_palette_morph_to_step")
+  (return-type "none")
+  (parameters
+    '("VGAPalette*" "srcpal")
+  )
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;
+;; VGAText
+;;;;;;;;;;;;;;;;;;;
+(define-object VGAText
+  (in-module "vgaterm")
+  (parent "GtkWidget")
+  (c-name "VGAText")
+  (gtype-id "VGA_TYPE_TEXT")
+)
+
+;; From vgatext.h
+
+(define-function vga_get_type
+  (c-name "vga_get_type")
+  (return-type "GType")
+)
+
+(define-function vga_text_new
+  (c-name "vga_text_new")
+  (is-constructor-of "VGAText")
+  (return-type "VGAText*")
+)
+
+(define-method cursor_set_visible
+  (of-object "VGAText")
+  (c-name "vga_cursor_set_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible")
+  )
+)
+
+(define-method cursor_is_visible
+  (of-object "VGAText")
+  (c-name "vga_cursor_is_visible")
+  (return-type "gboolean")
+)
+
+(define-method cursor_move
+  (of-object "VGAText")
+  (c-name "vga_cursor_move")
+  (return-type "none")
+  (parameters
+    '("int" "x")
+    '("int" "y")
+  )
+)
+
+(define-method set_palette
+  (of-object "VGAText")
+  (c-name "vga_set_palette")
+  (return-type "none")
+  (parameters
+    '("VGAPalette*" "palette")
+  )
+)
+
+(define-method get_palette
+  (of-object "VGAText")
+  (c-name "vga_get_palette")
+  (return-type "VGAPalette*")
+)
+
+(define-method get_font
+  (of-object "VGAText")
+  (c-name "vga_get_font")
+  (return-type "VGAFont*")
+)
+
+(define-method refresh_font
+  (of-object "VGAText")
+  (c-name "vga_refresh_font")
+  (return-type "none")
+)
+
+(define-method set_font
+  (of-object "VGAText")
+  (c-name "vga_set_font")
+  (return-type "none")
+  (parameters
+    '("VGAFont*" "font")
+  )
+)
+
+(define-method set_icecolor
+  (of-object "VGAText")
+  (c-name "vga_set_icecolor")
+  (return-type "none")
+  (parameters
+    '("gboolean" "status")
+  )
+)
+
+(define-method get_icecolor
+  (of-object "VGAText")
+  (c-name "vga_get_icecolor")
+  (return-type "gboolean")
+)
+
+(define-method put_char
+  (of-object "VGAText")
+  (c-name "vga_put_char")
+  (return-type "none")
+  (parameters
+    '("guchar" "c")
+    '("guchar" "attr")
+    '("int" "col")
+    '("int" "row")
+  )
+)
+
+(define-method put_string
+  (of-object "VGAText")
+  (c-name "vga_put_string")
+  (return-type "none")
+  (parameters
+    '("guchar*" "s")
+    '("guchar" "attr")
+    '("int" "col")
+    '("int" "row")
+  )
+)
+
+(define-method get_video_buf
+  (of-object "VGAText")
+  (c-name "vga_get_video_buf")
+  (return-type "guchar*")
+)
+
+(define-method cursor_x
+  (of-object "VGAText")
+  (c-name "vga_cursor_x")
+  (return-type "int")
+)
+
+(define-method cursor_y
+  (of-object "VGAText")
+  (c-name "vga_cursor_y")
+  (return-type "int")
+)
+
+(define-method render_region
+  (of-object "VGAText")
+  (c-name "vga_render_region")
+  (return-type "none")
+  (parameters
+    '("int" "top_left_x")
+    '("int" "top_left_y")
+    '("int" "cols")
+    '("int" "rows")
+  )
+)
+
+(define-method mark_region_dirty
+  (of-object "VGAText")
+  (c-name "vga_mark_region_dirty")
+  (return-type "none")
+  (parameters
+    '("int" "top_left_x")
+    '("int" "top_left_y")
+    '("int" "cols")
+    '("int" "rows")
+  )
+)
+
+(define-method refresh
+  (of-object "VGAText")
+  (c-name "vga_refresh")
+  (return-type "none")
+)
+
+(define-method get_rows
+  (of-object "VGAText")
+  (c-name "vga_get_rows")
+  (return-type "int")
+)
+
+(define-method get_cols
+  (of-object "VGAText")
+  (c-name "vga_get_cols")
+  (return-type "int")
+)
+
+(define-method clear_area
+  (of-object "VGAText")
+  (c-name "vga_clear_area")
+  (return-type "none")
+  (parameters
+    '("guchar" "attr")
+    '("int" "top_left_x")
+    '("int" "top_left_y")
+    '("int" "cols")
+    '("int" "rows")
+  )
+)
+
+(define-method video_buf_clear
+  (of-object "VGAText")
+  (c-name "vga_video_buf_clear")
+  (return-type "none")
+)
+
+
+;;;;;;;;;;;;;;;;;;;
+;; VGATerm
+;;;;;;;;;;;;;;;;;;;
+
+
+(define-object VGATerm
+  (in-module "vgaterm")
+  (parent "VGAText")
+  (c-name "VGATerm")
+  (gtype-id "VGA_TYPE_TERM")
+)
+
+;; Enumerations and flags ...
+
+;; From vgaterm.h
+
+(define-function vga_term_get_type
+  (c-name "vga_term_get_type")
+  (return-type "GType")
+)
+
+(define-function vga_term_new
+  (c-name "vga_term_new")
+  (is-constructor-of "VGATerm")
+  (return-type "VGATerm*")
+)
+
+(define-method writec
+  (of-object "VGATerm")
+  (c-name "vga_term_writec")
+  (return-type "none")
+  (parameters
+    '("guchar" "c")
+  )
+)
+
+(define-method write
+  (of-object "VGATerm")
+  (c-name "vga_term_write")
+  (return-type "gint")
+  (parameters
+    '("guchar*" "s")
+  )
+)
+
+(define-method writeln
+  (of-object "VGATerm")
+  (c-name "vga_term_writeln")
+  (return-type "gint")
+  (parameters
+    '("guchar*" "s")
+  )
+)
+
+(define-method print
+  (of-object "VGATerm")
+  (c-name "vga_term_print")
+  (return-type "int")
+  (parameters
+    '("const-gchar*" "format")
+  )
+  (varargs #t)
+)
+
+(define-method kbhit
+  (of-object "VGATerm")
+  (c-name "vga_term_kbhit")
+  (return-type "gboolean")
+)
+
+(define-method readkey
+  (of-object "VGATerm")
+  (c-name "vga_term_readkey")
+  (return-type "guchar")
+)
+
+(define-method window
+  (of-object "VGATerm")
+  (c-name "vga_term_window")
+  (return-type "none")
+  (parameters
+    '("int" "x1")
+    '("int" "y1")
+    '("int" "x2")
+    '("int" "y2")
+  )
+)
+
+(define-method gotoxy
+  (of-object "VGATerm")
+  (c-name "vga_term_gotoxy")
+  (return-type "none")
+  (parameters
+    '("int" "x")
+    '("int" "y")
+  )
+)
+
+(define-method wherex
+  (of-object "VGATerm")
+  (c-name "vga_term_wherex")
+  (return-type "int")
+)
+
+(define-method wherey
+  (of-object "VGATerm")
+  (c-name "vga_term_wherey")
+  (return-type "int")
+)
+
+(define-method cols
+  (of-object "VGATerm")
+  (c-name "vga_term_cols")
+  (return-type "int")
+)
+
+(define-method rows
+  (of-object "VGATerm")
+  (c-name "vga_term_rows")
+  (return-type "int")
+)
+
+(define-method clrscr
+  (of-object "VGATerm")
+  (c-name "vga_term_clrscr")
+  (return-type "none")
+)
+
+(define-method clrdown
+  (of-object "VGATerm")
+  (c-name "vga_term_clrdown")
+  (return-type "none")
+)
+
+(define-method clrup
+  (of-object "VGATerm")
+  (c-name "vga_term_clrup")
+  (return-type "none")
+)
+
+(define-method clreol
+  (of-object "VGATerm")
+  (c-name "vga_term_clreol")
+  (return-type "none")
+)
+
+(define-method scroll_up
+  (of-object "VGATerm")
+  (c-name "vga_term_scroll_up")
+  (return-type "none")
+  (parameters
+    '("int" "start_row")
+    '("int" "lines")
+  )
+)
+
+(define-method scroll_down
+  (of-object "VGATerm")
+  (c-name "vga_term_scroll_down")
+  (return-type "none")
+  (parameters
+    '("int" "start_row")
+    '("int" "lines")
+  )
+)
+
+(define-method insline
+  (of-object "VGATerm")
+  (c-name "vga_term_insline")
+  (return-type "none")
+)
+
+(define-method delline
+  (of-object "VGATerm")
+  (c-name "vga_term_delline")
+  (return-type "none")
+)
+
+(define-method set_attr
+  (of-object "VGATerm")
+  (c-name "vga_term_set_attr")
+  (return-type "none")
+  (parameters
+    '("guchar" "textattr")
+  )
+)
+
+(define-method get_attr
+  (of-object "VGATerm")
+  (c-name "vga_term_get_attr")
+  (return-type "guchar")
+)
+
+(define-method set_fg
+  (of-object "VGATerm")
+  (c-name "vga_term_set_fg")
+  (return-type "none")
+  (parameters
+    '("guchar" "fg")
+  )
+)
+
+(define-method set_bg
+  (of-object "VGATerm")
+  (c-name "vga_term_set_bg")
+  (return-type "none")
+  (parameters
+    '("guchar" "bg")
+  )
+)
+
+(define-method set_scroll
+  (of-object "VGATerm")
+  (c-name "vga_term_set_scroll")
+  (return-type "none")
+  (parameters
+    '("int" "line")
+  )
+)
+
+;; From emulation.c
+
+(define-method emu_init
+  (of-object "VGATerm")
+  (c-name "vga_term_emu_init")
+  (return-type "none")
+)
+
+(define-method emu_writec
+  (of-object "VGATerm")
+  (c-name "vga_term_emu_writec")
+  (return-type "none")
+  (parameters
+    '("guchar" "c")
+  )
+)
+
+(define-method emu_write
+  (of-object "VGATerm")
+  (c-name "vga_term_emu_write")
+  (return-type "none")
+  (parameters
+    '("guchar*" "s")
+  )
+)

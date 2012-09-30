@@ -1,0 +1,16 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+# so people can do "pkg-config --variable moduledir libvgaterm-1.0"
+# (which is broken - users can now use the LIBGLADE_MODULE_PATH
+# environment variable
+moduledir=${libdir}/libvgaterm/1.0
+
+Name: libvgaterm
+Description: a gtk+ widget for emulating a VGA terminal
+Version: @VERSION@
+Requires:
+Libs: -L${libdir} -lvgaterm-1.0
+Cflags: -I${includedir}/libvgaterm-1.0

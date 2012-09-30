@@ -1,0 +1,59 @@
+Summary: libvgaterm library
+Name: libvgaterm
+Version: @VERSION@
+Release: 1
+Copyright: LGPL
+Group: System Environment/Libraries
+Source: http://stabby.com/libvgaterm/libvgaterm-%{version}.tar.gz
+BuildRoot: /var/tmp/%{name}-%{version}-root
+URL: http://stabby.com/libvgaterm
+
+%description
+Blah blah blah.  Blah blah blah.
+Blah blah blah.  Blah blah blah.
+
+%package devel
+Summary: Libraries, includes, etc to develop libvgaterm applications
+Group: Development/Libraries
+Requires: libvgaterm
+
+%description devel
+Libraries, include files, etc you can use to develop libvgaterm applications.
+
+%changelog
+
+* Thu Oct 8 2009 Nate Case <nacase@gmail.com>
+
+- Initial release 1.0.0
+
+%prep
+%setup
+%build
+%configure
+make
+
+%install
+%makeinstall
+
+%post
+/sbin/ldconfig
+
+%postun
+/sbin/ldconfig
+
+%files
+%defattr(-, root, root)
+
+%doc AUTHORS ChangeLog NEWS README COPYING
+%{_prefix}/lib/lib*.so.*
+
+%files devel
+%defattr(-, root, root)
+
+%{_prefix}/bin/*
+%{_prefix}/lib/lib*.so
+%{_prefix}/lib/*a
+%{_prefix}/include/libvgaterm-1.0/xes/*
+%{_prefix}/lib/pkgconfig/libvgaterm-1.0.pc
+
+%doc test-libvgaterm.c
