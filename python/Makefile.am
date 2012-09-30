@@ -37,5 +37,5 @@ vgaterm.c: vgaterm.defs vgaterm.override
             --prefix py$* $*.defs) > gen-$*.c \
         && cp gen-$*.c $*.c \
         && rm -f gen-$*.c
-
+	ln -s .libs/vgatermmodule.so .
 endif
